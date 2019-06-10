@@ -90,6 +90,7 @@ router.get('/', function(req, res) {
          // we will not alter the field.
          (req.body.author) ? comment.author = req.body.author : null;
          (req.body.text) ? comment.text = req.body.text : null;
+         (req.body.date) ? comment.date = req.body.date : null;
          //save comment
          comment.save(function(err) {
            if (err)

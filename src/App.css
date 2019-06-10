@@ -1,0 +1,76 @@
+.hint-comment::before {
+    content: "";
+    position: absolute;
+    top: 0.6rem;
+    left: 0rem;
+    margin-left: -1.5rem;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    border-width: 0.8rem;
+    border-style: solid;
+    border-color: #f8f9fa transparent transparent transparent;
+  }
+  
+  .control-comment {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 0.6rem;
+  }
+  
+  .control-comment .position-btn {
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  
+  @media only screen and (max-width: 767px) {
+    .comments-zone .left img {
+      width: 2rem;
+      height: 2rem;
+    }
+    .comments-zone .left {
+      max-width: 3rem;
+    }
+    .comments-zone .right .hint-comment .card-body {
+      padding: 0.8rem;
+    }
+    .comments-zone .right .hint-comment .card-body h6 {
+      font-size: 0.8rem;
+    }
+    .comments-zone .right .hint-comment .card-body p {
+      font-size: 0.8rem;
+    }
+    .comments-zone .right .hint-comment .card-body .btn {
+      font-size: 0.8rem;
+    }
+    .comments-zone .right .hint-comment .collapse .card .card-body form .form-group textarea {
+      font-size: 0.8rem;
+    }
+    .reply-zone .left img {
+      width: 1.8rem;
+      height: 1.8rem;
+      position: relative;
+      left: -2rem;
+      top: -0.4rem;
+    }
+    .reply-zone .left {
+      max-width: 1rem;
+      padding: 0;
+    }
+    .reply-zone .right {
+      padding-left: 0;
+    }
+    .reply-zone .right .card-body {
+      padding: 0.8rem;
+    }
+    .reply-zone .right .card-body h6 {
+      font-size: 0.8rem;
+    }
+    .reply-zone .right .card-body p {
+      font-size: 0.8rem;
+    }
+    .reply-zone .right .card-body .btn {
+      font-size: 0.8rem;
+    }
+  }
+  

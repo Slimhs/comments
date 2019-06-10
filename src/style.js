@@ -37,10 +37,21 @@ const style = {
     commentFormText: {
       flex:'4',
       minWidth:'400px',
-      //margin:'3px',
+      //margin:'5px',
       padding:'0 10px',
       height:'40px',
       borderRadius:'3px'
+      
+    },
+    
+    updateFormText: {
+      flex:'4',
+      minWidth:'400px',
+      margin:'5px',
+      padding:'0 10px',
+      height:'40px',
+      borderRadius:'3px'
+      
     },
     commentFormPost: {
       minWidth:'75px',

@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import style from './style';
 import marked from 'marked';
+import './App.css';
 
 class Comment extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class Comment extends Component {
       toBeUpdated: false,
       author: '',
       text: '',
-      date: ''
+      id: ''
     };
   }
   updateComment = (e) => {
@@ -51,10 +52,30 @@ class Comment extends Component {
   }
   render() {
     return (
-      <div style={style.comment}>
-        <h3  dir='auto' >{this.props.author}</h3>
-        <h6 style={{ fontSize: 10 }}>{this.props.id}</h6>
+
+      
+      <div className="card rounded border-0 "  >
+     <div className="row reply-zone">
+                        <div className="col-1 left">
+                        <div className="card-body">
+                          <img
+                            src="https://image.freepik.com/vecteurs-libre/profil-avatar-homme-icone-ronde_24640-14044.jpg"
+                            width={30}
+                            alt="..."
+                            className="rounded-circle"
+                          />
+                       </div>
+                      </div>
+
+                      <div className="col-11 right">
+                        <div className="card-body pb-0">
+                          <div className="card rounded border-0 bg-light hint-comment">
+                            <div className="card-body">
+
+        <h4  dir='auto' >{this.props.author}</h4>
+        <h6 >{this.props.id}</h6>
         <span dir='auto' dangerouslySetInnerHTML={this.rawMarkup()} />
+
         <button
           type="button"
           className="btn btn-outline-secondary btn-sm p-0 mr-2"
@@ -64,6 +85,7 @@ class Comment extends Component {
           Edit
           <span className="pr-2" />
         </button>
+
         <button
           type="button"
           className="btn btn-outline-secondary btn-sm p-0 mr-2"
@@ -84,12 +106,15 @@ class Comment extends Component {
               value={this.state.author}
               onChange={this.handleAuthorChange}
             />
+            
             <input
               type="text"
+              dir='auto'
               placeholder="Update your comment..."
-              style={style.commentFormText}
+              style={style.updateFormText }
               value={this.state.text}
               onChange={this.handleTextChange}
+              
             />
 
             <button
@@ -97,14 +122,29 @@ class Comment extends Component {
               type="submit"
               className="btn btn-outline-secondary btn-sm p-0 mr-2"
             >
-              <span className="mdi mdi-pencil pr-2 pl-2" />
+              <span className="mdi mdi-update pr-2 pl-2" />
               Update
+              <span className="pr-2" />
+            </button>
+            
+            <button
+              onClick={this.updateComment}
+              type="button"
+              className="btn btn-outline-secondary btn-sm p-0 mr-2"
+            >
+              <span className="mdi mdi-cancel pr-2 pl-2" />
+              Cancel
               <span className="pr-2" />
             </button>
 
           </form>
         ) : null}
       </div>
+      </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
     );
   }
 }
