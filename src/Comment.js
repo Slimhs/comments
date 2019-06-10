@@ -52,9 +52,9 @@ class Comment extends Component {
   render() {
     return (
       <div style={style.comment}>
-        <h3>{this.props.author}</h3>
+        <h3  dir='auto' >{this.props.author}</h3>
         <h6 style={{ fontSize: 10 }}>{this.props.id}</h6>
-        <span dangerouslySetInnerHTML={this.rawMarkup()} />
+        <span dir='auto' dangerouslySetInnerHTML={this.rawMarkup()} />
         <button
           type="button"
           className="btn btn-outline-secondary btn-sm p-0 mr-2"
