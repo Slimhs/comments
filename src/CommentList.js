@@ -9,7 +9,7 @@ class CommentList extends Component {
       return (
          <Comment
           author={ comment.author || '' }
-          date={ comment.date || '' }
+          //date={ comment.date || '' }
           uniqueID={comment['_id']}
           onCommentDelete={this.props.onCommentDelete}
           onCommentUpdate={this.props.onCommentUpdate}

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import style from './style';
 import marked from 'marked';
 import './App.css';
+import Moment from "react-moment";
 
 class Comment extends Component {
   constructor(props) {
@@ -10,8 +11,8 @@ class Comment extends Component {
     this.state= {
       toBeUpdated: false,
       author: '',
-      text: '',
-      id: ''
+      text: ''
+      
     };
   }
   updateComment = (e) => {
@@ -52,99 +53,107 @@ class Comment extends Component {
   }
   render() {
     return (
+      <div className="card rounded border-0 ">
+        <div className="row reply-zone">
+          <div className="col-1 left">
+            <div className="card-body">
+              <img
+                src="https://image.freepik.com/vecteurs-libre/profil-avatar-homme-icone-ronde_24640-14044.jpg"
+                width={30}
+                alt="..."
+                className="rounded-circle"
+              />
+            </div>
+          </div>
 
-      
-      <div className="card rounded border-0 "  >
-     <div className="row reply-zone">
-                        <div className="col-1 left">
-                        <div className="card-body">
-                          <img
-                            src="https://image.freepik.com/vecteurs-libre/profil-avatar-homme-icone-ronde_24640-14044.jpg"
-                            width={30}
-                            alt="..."
-                            className="rounded-circle"
-                          />
-                       </div>
-                      </div>
+          <div className="col-11 right">
+            <div className="card-body pb-0">
+              <div className="card rounded border-0 bg-light hint-comment">
+                <div className="card-body">
 
-                      <div className="col-11 right">
-                        <div className="card-body pb-0">
-                          <div className="card rounded border-0 bg-light hint-comment">
-                            <div className="card-body">
+                  <h4 dir="auto">{this.props.author}
+                  <span style={{ fontSize: 10 }} > - </span> 
+                  
+                  <span>
+                  <Moment fromNow style={{ fontSize: 10 }}>
+                    {this.props.date}
+                  </Moment>
+                  </span>
+                  </h4>
 
-        <h4  dir='auto' >{this.props.author}</h4>
-        <h6 >{this.props.id}</h6>
-        <span dir='auto' dangerouslySetInnerHTML={this.rawMarkup()} />
 
-        <button
-          type="button"
-          className="btn btn-outline-secondary btn-sm p-0 mr-2"
-          onClick={this.updateComment}
-        >
-          <span className="mdi mdi-pencil pr-2 pl-2" />
-          Edit
-          <span className="pr-2" />
-        </button>
+                  <span
+                    dir="auto"
+                    dangerouslySetInnerHTML={this.rawMarkup()}
+                  />
 
-        <button
-          type="button"
-          className="btn btn-outline-secondary btn-sm p-0 mr-2"
-          onClick={this.deleteComment}
-        >
-          <span className="mdi mdi-delete pr-2 pl-2" />
-          Delete
-          <span className="pr-2" />
-        </button>
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary btn-sm p-0 mr-2"
+                    onClick={this.updateComment}
+                  >
+                    <span className="mdi mdi-pencil pr-2 pl-2" />
+                    Edit
+                    <span className="pr-2" />
+                  </button>
 
-        {this.state.toBeUpdated ? (
-          <form onSubmit={this.handleCommentUpdate}>
-            <input
-              type="hidden"
-              //type='text'
-              placeholder="Update name..."
-              style={style.commentFormAuthor}
-              value={this.state.author}
-              onChange={this.handleAuthorChange}
-            />
-            
-            <input
-              type="text"
-              dir='auto'
-              placeholder="Update your comment..."
-              style={style.updateFormText }
-              value={this.state.text}
-              onChange={this.handleTextChange}
-              
-            />
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary btn-sm p-0 mr-2"
+                    onClick={this.deleteComment}
+                  >
+                    <span className="mdi mdi-delete pr-2 pl-2" />
+                    Delete
+                    <span className="pr-2" />
+                  </button>
 
-            <button
-              value="Update"
-              type="submit"
-              className="btn btn-outline-secondary btn-sm p-0 mr-2"
-            >
-              <span className="mdi mdi-update pr-2 pl-2" />
-              Update
-              <span className="pr-2" />
-            </button>
-            
-            <button
-              onClick={this.updateComment}
-              type="button"
-              className="btn btn-outline-secondary btn-sm p-0 mr-2"
-            >
-              <span className="mdi mdi-cancel pr-2 pl-2" />
-              Cancel
-              <span className="pr-2" />
-            </button>
+                  {this.state.toBeUpdated ? (
+                    <form onSubmit={this.handleCommentUpdate}>
+                      <input
+                        type="hidden"
+                        //type='text'
+                        placeholder="Update name..."
+                        style={style.commentFormAuthor}
+                        value={this.state.author}
+                        onChange={this.handleAuthorChange}
+                      />
 
-          </form>
-        ) : null}
+                      <input
+                        type="text"
+                        dir="auto"
+                        placeholder="Update your comment..."
+                        style={style.updateFormText}
+                        value={this.state.text}
+                        onChange={this.handleTextChange}
+                      />
+
+                      <button
+                        value="Update"
+                        type="submit"
+                        className="btn btn-outline-secondary btn-sm p-0 mr-2"
+                      >
+                        <span className="mdi mdi-update pr-2 pl-2" />
+                        Update
+                        <span className="pr-2" />
+                      </button>
+
+                      <button
+                        onClick={this.updateComment}
+                        type="button"
+                        className="btn btn-outline-secondary btn-sm p-0 mr-2"
+                      >
+                        <span className="mdi mdi-cancel pr-2 pl-2" />
+                        Cancel
+                        <span className="pr-2" />
+                      </button>
+                    </form>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
     );
   }
 }

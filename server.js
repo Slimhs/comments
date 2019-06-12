@@ -72,7 +72,7 @@ router.get('/', function(req, res) {
       //body parser lets us use the req.body
       comment.author = req.body.author;
       comment.text = req.body.text;
-      comment.date = req.body.date;
+      //comment.date = req.body.date;
   
       comment.save(function(err) {
         if (err)
@@ -90,7 +90,7 @@ router.get('/', function(req, res) {
          // we will not alter the field.
          (req.body.author) ? comment.author = req.body.author : null;
          (req.body.text) ? comment.text = req.body.text : null;
-         (req.body.date) ? comment.date = req.body.date : null;
+         //(req.body.date) ? comment.date = req.body.date : null;
          //save comment
          comment.save(function(err) {
            if (err)
