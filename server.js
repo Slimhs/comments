@@ -38,6 +38,7 @@ app.use(function(req, res, next) {
 //now  we can set the route path & initialize the API
 router.get('/', function(req, res) {
   res.json({ message: 'API Initialized!'});
+  res.sendfile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
 //Use our router configuration when we call /api
