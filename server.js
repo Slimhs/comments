@@ -42,8 +42,8 @@ app.use(function(req, res, next) {
 // });
 
 //Use our router configuration when we call /api
-app.use('/api', router);
-
+app.use('/', router);
+app.use(express.static('build'));
 //starts the server and listens for requests
 app.listen(port, function() {
   console.log(`api running on port ${port}`);
