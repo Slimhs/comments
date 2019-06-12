@@ -52,7 +52,7 @@ app.listen(port, function() {
 //now  we can set the route path & initialize the API
 router.get('/', function(req, res) {
     // res.json({ message: 'API Initialized!'});
-  res.sendfile(path.resolve(__dirname, 'build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
   
   //adding the /comments route to our /api router
