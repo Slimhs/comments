@@ -145,8 +145,7 @@ class Comment extends Component {
                   {this.state.toBeUpdated ? (
                     <form onSubmit={this.handleCommentUpdate}>
                       <input
-                        type="text"
-                        //type='text'
+                        type="hidden"
                         placeholder="Update name..."
                         style={style.commentFormAuthor}
                         value={this.state.author}
