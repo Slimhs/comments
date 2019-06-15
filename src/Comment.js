@@ -1,54 +1,83 @@
-
-import React, { Component } from 'react';
-import style from './style';
-import marked from 'marked';
-import './App.css';
+import React, { Component } from "react";
+import axios from 'axios';
+import style from "./style";
+import marked from "marked";
+import CommentForm from "./CommentForm";
+import "./App.css";
 import Moment from "react-moment";
 
 class Comment extends Component {
   constructor(props) {
     super(props);
-    this.state= {
+    this.state = {
       toBeUpdated: false,
-      author: '',
-      text: ''
-      
+      toReply: false,
+      author: "",
+      text: ""
     };
   }
-  updateComment = (e) => {
+  updateComment = e => {
     e.preventDefault();
     //brings up the update field when we click on the update link.
     this.setState({ toBeUpdated: !this.state.toBeUpdated });
-  }
-  handleCommentUpdate = (e) => {
+    //console.log(this.state.text);
+  };
+
+  replyComment = e => {
+    e.preventDefault();
+    //brings up the update field when we click on the update link.
+    this.setState({ toReply: !this.state.toReply });
+  };
+
+  handleCommentUpdate = e => {
     e.preventDefault();
     let id = this.props.uniqueID;
     //if author or text changed, set it. if not, leave null and our PUT request
     //will ignore it.
-    let author = (this.state.author) ? this.state.author : null;
-    let text = (this.state.text) ? this.state.text : null;
-    let comment = { author: author, text: text};
+    let author = this.state.author ? this.state.author : null;
+    let text = this.state.text ? this.state.text : null;
+    let comment = { author: author, text: text };
     this.props.onCommentUpdate(id, comment);
     this.setState({
       toBeUpdated: !this.state.toBeUpdated,
-      author: '',
-      text: ''
-    })
+      author: "",
+      text: ""
+    });
+  };
+
+  handleReply = ({ text, author }) => {
+    const { onReply, uniqueID } = this.props;
+
+    onReply({ text, author, originalComment: uniqueID });
+    this.setState({ toReply: false });
   }
-  deleteComment = (e) => {
+
+  getReplies = () => {
+    const { uniqueID } = this.props;
+    axios
+      .get(`${this.props.url}/${uniqueID}/replies`)
+      .then(({ data }) => { console.log(data) ;this.setState({ replies: data })})
+      .catch(err => console.error(err));
+  }
+
+  componentDidMount() {
+    this.getReplies();
+  }
+
+  deleteComment = e => {
     e.preventDefault();
     let id = this.props.uniqueID;
     this.props.onCommentDelete(id);
-    console.log('deleted');
-  }
-  handleTextChange = (e) => {
+    console.log("deleted");
+  };
+  handleTextChange = e => {
     this.setState({ text: e.target.value });
-  }
-  handleAuthorChange = (e) => {
+  };
+  handleAuthorChange = e => {
     this.setState({ author: e.target.value });
-  }
+  };
   rawMarkup() {
-    let rawMarkup = marked(this.props.children.toString());
+    let rawMarkup = marked(this.props.text.toString());
     return { __html: rawMarkup };
   }
   render() {
@@ -70,22 +99,18 @@ class Comment extends Component {
             <div className="card-body pb-0">
               <div className="card rounded border-0 bg-light hint-comment">
                 <div className="card-body">
+                  <h4 dir="auto">
+                    {this.props.author}
+                    <span style={{ fontSize: 10 }}> - </span>
 
-                  <h4 dir="auto">{this.props.author}
-                  <span style={{ fontSize: 10 }} > - </span> 
-                  
-                  <span>
-                  <Moment fromNow style={{ fontSize: 10 }}>
-                    {this.props.date}
-                  </Moment>
-                  </span>
+                    <span>
+                      <Moment fromNow style={{ fontSize: 10 }}>
+                        {this.props.date}
+                      </Moment>
+                    </span>
                   </h4>
 
-
-                  <span
-                    dir="auto"
-                    dangerouslySetInnerHTML={this.rawMarkup()}
-                  />
+                  <span dir="auto" dangerouslySetInnerHTML={this.rawMarkup()} />
 
                   <button
                     type="button"
@@ -107,10 +132,20 @@ class Comment extends Component {
                     <span className="pr-2" />
                   </button>
 
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary btn-sm p-0 mr-2"
+                    onClick={this.replyComment}
+                  >
+                    <span className="mdi mdi-reply-all pr-2 pl-2" />
+                    Reply
+                    <span className="pr-2" />
+                  </button>
+
                   {this.state.toBeUpdated ? (
                     <form onSubmit={this.handleCommentUpdate}>
                       <input
-                        type="hidden"
+                        type="text"
                         //type='text'
                         placeholder="Update name..."
                         style={style.commentFormAuthor}
@@ -121,9 +156,9 @@ class Comment extends Component {
                       <input
                         type="text"
                         dir="auto"
-                        placeholder="Update your comment..."
+                        //placeholder="Update your comment..."
                         style={style.updateFormText}
-                        value={this.state.text}
+                        value={this.state.text || this.props.text}
                         onChange={this.handleTextChange}
                       />
 
@@ -147,6 +182,12 @@ class Comment extends Component {
                         <span className="pr-2" />
                       </button>
                     </form>
+                  ) : null}
+                  {this.state.toReply ? (
+                    <CommentForm
+                      submitBtnText="Reply"
+                      onCommentSubmit={this.handleReply}
+                    />
                   ) : null}
                 </div>
               </div>

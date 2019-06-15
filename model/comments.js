@@ -8,10 +8,8 @@ var Schema = mongoose.Schema;
 var CommentsSchema = new Schema({
   author: String,
   text: String,
-  date: {
-    type: Date,
-    default: Date.now
-  }
+  date: { type: Date, default: Date.now },
+  originalComment: { type: Schema.Types.ObjectId, ref: 'Comment' },
 });
 
 //export our module to use in server.js

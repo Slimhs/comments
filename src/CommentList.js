@@ -4,19 +4,24 @@ import style from './style';
 
 class CommentList extends Component {
   render() {
-   
+   const { onReply } = this.props;
+
     let commentNodes = this.props.data.map(comment => {
+      // Destructuring example
+      const { author, date, _id, text } = comment;
       return (
          <Comment
-          author={ comment.author || '' }
-          date={ comment.date || '' }
-          uniqueID={comment['_id']}
+          author={ author || '' }
+          date={ date || '' }
+          uniqueID={_id}
           onCommentDelete={this.props.onCommentDelete}
           onCommentUpdate={this.props.onCommentUpdate}
-          key={ comment['_id'] }
-        >
-          {comment.text || 'empty!'}
-        </Comment>
+          key={_id}
+          text={text}
+          onReply={onReply}
+          url={this.props.url}
+
+        />
       )
      })
     
